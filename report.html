@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>펫스튜어드 맞춤 리포트</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #FFF9E1;
+      padding: 40px;
+      margin: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+    h2 {
+      color: #0B005C;
+    }
+    .cta-buttons {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .btn {
+      display: block;
+      background-color: #D0E4FF;
+      color: #0B005C;
+      padding: 12px;
+      text-align: center;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.2s;
+    }
+    .btn:hover {
+      background-color: #bcd4f3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 id="greeting">맞춤 리포트</h2>
+    <p id="intro">고객님과 반려견을 위한 정보를 불러오고 있습니다...</p>
+    <ul>
+      <li id="info-product"></li>
+      <li id="info-weight"></li>
+      <li id="info-age"></li>
+    </ul>
+
+    <div class="cta-buttons">
+      <a href="https://smartstore.naver.com/petsteward/review" class="btn" target="_blank">
+        ✍️ {{dog}}의 첫 식사, 후기 남기기
+      </a>
+      <a href="https://pf.kakao.com/_abcd/chat" class="btn" target="_blank">
+        🧬 1:1 맞춤 식단 상담 받기
+      </a>
+      <a href="https://smartstore.naver.com/petsteward/products?bundle" class="btn" target="_blank">
+        🌟 다른 보호자님이 선택한 식단 보기
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get('name') || '고객';
+    const dog = params.get('dog') || '반려견';
+    const product = params.get('product') || '제품';
+    const weight = params.get('weight') || '정보 없음';
+    const age = params.get('age') || '정보 없음';
+
+    document.getElementById("greeting").innerText = `${name} 보호자님을 위한 맞춤 리포트`;
+    document.getElementById("intro").innerText = `${dog}의 식단과 건강을 위한 제안을 담았습니다.`;
+    document.getElementById("info-product").innerText = `✅ 추천 제품: ${product}`;
+    document.getElementById("info-weight").innerText = `⚖️ 체중: ${weight}`;
+    document.getElementById("info-age").innerText = `🎂 나이: ${age}세`;
+
+    // Replace {{dog}} placeholders in buttons
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.innerHTML = btn.innerHTML.replace("{{dog}}", dog);
+    });
+  </script>
+</body>
+</html>
