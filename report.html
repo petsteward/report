@@ -2,89 +2,133 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
+  <title>펫스튜어드 건강문진 폼</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>펫스튜어드 맞춤 리포트</title>
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #FFF9E1;
-      padding: 40px;
-      margin: 0;
+    body { font-family: 'Noto Sans KR', sans-serif; background: #f9f9f9; color: #333; padding: 20px; max-width: 800px; margin: auto; }
+    h2 { color: #00215F; border-bottom: 2px solid #ccc; padding-bottom: 5px; }
+    label, textarea { display: block; margin-top: 12px; font-weight: bold; }
+    input[type="text"], textarea {
+      width: 100%; padding: 8px; margin-top: 5px;
+      border: 1px solid #ccc; border-radius: 5px;
     }
-    .container {
-      max-width: 600px;
-      margin: auto;
-      background: #ffffff;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.05);
-    }
-    h2 {
-      color: #0B005C;
-    }
-    .cta-buttons {
-      margin-top: 30px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .btn {
-      display: block;
-      background-color: #D0E4FF;
-      color: #0B005C;
-      padding: 12px;
-      text-align: center;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.2s;
-    }
-    .btn:hover {
-      background-color: #bcd4f3;
-    }
+    .checkbox-group { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 12px; }
+    .checkbox-group label { font-weight: normal; }
+    button { margin-top: 20px; padding: 12px 24px; font-size: 16px; border: none; border-radius: 6px; background-color: #00215F; color: white; cursor: pointer; }
+    button:hover { background-color: #004080; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2 id="greeting">맞춤 리포트</h2>
-    <p id="intro">고객님과 반려견을 위한 정보를 불러오고 있습니다...</p>
-    <ul>
-      <li id="info-product"></li>
-      <li id="info-weight"></li>
-      <li id="info-age"></li>
-    </ul>
 
-    <div class="cta-buttons">
-      <a href="https://smartstore.naver.com/petsteward/review" class="btn" target="_blank">
-        ✍️ {{dog}}의 첫 식사, 후기 남기기
-      </a>
-      <a href="https://pf.kakao.com/_abcd/chat" class="btn" target="_blank">
-        🧬 1:1 맞춤 식단 상담 받기
-      </a>
-      <a href="https://smartstore.naver.com/petsteward/products?bundle" class="btn" target="_blank">
-        🌟 다른 보호자님이 선택한 식단 보기
-      </a>
-    </div>
+  <h1>🐶 펫스튜어드 반려견 건강 문진 폼</h1>
+
+  <!-- 기본 정보 -->
+  <h2>1. 기본 정보</h2>
+  <label>이름</label>
+  <input type="text" name="name" placeholder="예: 초코">
+
+  <label>견종</label>
+  <input type="text" name="breed" placeholder="예: 말티즈">
+
+  <div class="checkbox-group">
+    <label><input type="radio" name="gender" value="수컷"> 수컷</label>
+    <label><input type="radio" name="gender" value="암컷"> 암컷</label>
   </div>
 
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const name = params.get('name') || '고객';
-    const dog = params.get('dog') || '반려견';
-    const product = params.get('product') || '제품';
-    const weight = params.get('weight') || '정보 없음';
-    const age = params.get('age') || '정보 없음';
+  <div class="checkbox-group">
+    <label><input type="radio" name="neutered" value="예"> 중성화 예</label>
+    <label><input type="radio" name="neutered" value="아니오"> 중성화 아니오</label>
+  </div>
 
-    document.getElementById("greeting").innerText = `${name} 보호자님을 위한 맞춤 리포트`;
-    document.getElementById("intro").innerText = `${dog}의 식단과 건강을 위한 제안을 담았습니다.`;
-    document.getElementById("info-product").innerText = `✅ 추천 제품: ${product}`;
-    document.getElementById("info-weight").innerText = `⚖️ 체중: ${weight}`;
-    document.getElementById("info-age").innerText = `🎂 나이: ${age}세`;
+  <label>나이</label>
+  <div class="checkbox-group">
+    <label><input type="radio" name="age" value="성장기"> 성장기(1세 미만)</label>
+    <label><input type="radio" name="age" value="성견"> 성견(1~7세)</label>
+    <label><input type="radio" name="age" value="노견"> 노견(8세 이상)</label>
+  </div>
 
-    // Replace {{dog}} placeholders in buttons
-    document.querySelectorAll('.btn').forEach(btn => {
-      btn.innerHTML = btn.innerHTML.replace("{{dog}}", dog);
-    });
-  </script>
+  <label>체중</label>
+  <div class="checkbox-group">
+    <label><input type="radio" name="weight" value="소형"> 소형(5kg↓)</label>
+    <label><input type="radio" name="weight" value="중형"> 중형(5~15kg)</label>
+    <label><input type="radio" name="weight" value="대형"> 대형(15kg↑)</label>
+  </div>
+
+  <!-- 생활습관 -->
+  <h2>2. 생활 습관</h2>
+  <label>산책 시간</label>
+  <div class="checkbox-group">
+    <label><input type="radio" name="walk" value="없음"> 없음</label>
+    <label><input type="radio" name="walk" value="30분 미만"> 30분 미만</label>
+    <label><input type="radio" name="walk" value="30분 이상"> 30분~1시간</label>
+    <label><input type="radio" name="walk" value="1시간 이상"> 1시간 이상</label>
+  </div>
+
+  <label>활동 수준</label>
+  <div class="checkbox-group">
+    <label><input type="radio" name="activity" value="낮음"> 낮음</label>
+    <label><input type="radio" name="activity" value="보통"> 보통</label>
+    <label><input type="radio" name="activity" value="높음"> 활발함</label>
+  </div>
+
+  <label>식사 횟수</label>
+  <div class="checkbox-group">
+    <label><input type="radio" name="meal" value="1회"> 1회</label>
+    <label><input type="radio" name="meal" value="2회"> 2회</label>
+    <label><input type="radio" name="meal" value="3회 이상"> 3회 이상</label>
+  </div>
+
+  <label>물 마시는 양</label>
+  <div class="checkbox-group">
+    <label><input type="radio" name="water" value="적음"> 적음</label>
+    <label><input type="radio" name="water" value="보통"> 보통</label>
+    <label><input type="radio" name="water" value="많음"> 많음</label>
+  </div>
+
+  <label>간식 섭취 빈도</label>
+  <div class="checkbox-group">
+    <label><input type="radio" name="snack" value="없음"> 없음</label>
+    <label><input type="radio" name="snack" value="1회"> 하루 1회</label>
+    <label><input type="radio" name="snack" value="2회 이상"> 하루 2회 이상</label>
+  </div>
+
+  <!-- 건강 상태 -->
+  <h2>3. 건강 상태</h2>
+  <div class="checkbox-group">
+    <label><input type="checkbox" name="health" value="슬개골 탈구"> 슬개골 탈구</label>
+    <label><input type="checkbox" name="health" value="고관절 이형성"> 고관절 이형성</label>
+    <label><input type="checkbox" name="health" value="관절염"> 관절염</label>
+    <label><input type="checkbox" name="health" value="신장 질환"> 신장 질환</label>
+    <label><input type="checkbox" name="health" value="요로결석"> 요로결석</label>
+    <label><input type="checkbox" name="health" value="심장 질환"> 심장 질환</label>
+    <label><input type="checkbox" name="health" value="피부 알러지"> 피부 알러지</label>
+    <label><input type="checkbox" name="health" value="치석"> 치석</label>
+    <label><input type="checkbox" name="health" value="토 자주함"> 토 자주함</label>
+    <label><input type="checkbox" name="health" value="비만"> 비만</label>
+    <label><input type="checkbox" name="health" value="췌장염"> 췌장염</label>
+    <label><input type="checkbox" name="health" value="백내장"> 백내장</label>
+    <label><input type="checkbox" name="health" value="기타"> 기타</label>
+  </div>
+
+  <!-- 복용 중인 약/보충제 -->
+  <h2>4. 복용 중인 약/보충제</h2>
+  <div class="checkbox-group">
+    <label><input type="checkbox" name="supplement" value="없음"> 없음</label>
+    <label><input type="checkbox" name="supplement" value="심장약"> 심장약</label>
+    <label><input type="checkbox" name="supplement" value="신장약"> 신장약</label>
+    <label><input type="checkbox" name="supplement" value="관절보조제"> 관절 보조제</label>
+    <label><input type="checkbox" name="supplement" value="오메가3"> 오메가3</label>
+    <label><input type="checkbox" name="supplement" value="유산균"> 유산균</label>
+    <label><input type="checkbox" name="supplement" value="기타"> 기타</label>
+  </div>
+
+  <!-- 우려사항 -->
+  <h2>5. 보호자 우려 사항</h2>
+  <label for="concern">자유롭게 걱정되는 점을 적어주세요</label>
+  <textarea name="concern" rows="4" placeholder="예: 관절이 약해서 계단을 못 올라가요."></textarea>
+
+  <!-- 제출 버튼 -->
+  <button type="submit">제출하기</button>
+
 </body>
 </html>
